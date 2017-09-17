@@ -7,59 +7,41 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
-import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
-import in.galaxyofandroid.spinerdialog.SpinnerDialog;
+import in.galaxyofandroid.spinnerdialog.OnSpinnerItemClick;
+import in.galaxyofandroid.spinnerdialog.SpinnerDialog;
 
-public class MainActivity extends AppCompatActivity
-{
-    ArrayList<String> items=new ArrayList<>();
+public class MainActivity extends AppCompatActivity {
+
+    Collection<String> items;
     SpinnerDialog spinnerDialog;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView selectedItems=(TextView)findViewById(R.id.txt);
+        final TextView selectedItems = (TextView) findViewById(R.id.txt);
 
+        items = new ArrayList<>(Arrays.asList("Rome", "Milan", "Los Angeles", "New York", "Delhi", "London", "Berlin"));
 
-        items.add("Mumbai");
-        items.add("Delhi");
-        items.add("Bengaluru");
-        items.add("Hyderabad");
-        items.add("Ahmedabad");
-        items.add("Chennai");
-        items.add("Kolkata");
-        items.add("Surat");
-        items.add("Pune");
-        items.add("Jaipur");
-        items.add("Lucknow");
-        items.add("Kanpur");
+        spinnerDialog = new SpinnerDialog(this, items, "Select or Search City", "Maybe later", R.style.DialogAnimations_SmileWindow);
 
-        spinnerDialog=new SpinnerDialog(MainActivity.this,items,"Select or Search City",R.style.DialogAnimations_SmileWindow);
-
-        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick()
-        {
+        spinnerDialog.bindOnSpinnerListener(new OnSpinnerItemClick() {
             @Override
-            public void onClick(String item, int position)
-            {
+            public void onClick(String item, int position) {
                 Toast.makeText(MainActivity.this, item + "  " + position+"", Toast.LENGTH_SHORT).show();
                 selectedItems.setText(item + " Position: " + position);
             }
         });
 
-        findViewById(R.id.show).setOnClickListener(new View.OnClickListener()
-        {
+        findViewById(R.id.show).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                spinnerDialog.showSpinerDialog();
+            public void onClick(View v) {
+                spinnerDialog.showSpinnerDialog();
             }
         });
     }
-
-
-
-
 }
