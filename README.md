@@ -15,52 +15,41 @@ Step 1. Add the JitPack repository to your build file
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.MdFarhanRaja:SearchableSpinner:1.2'
+	        compile 'com.github.fortym2:SearchableSpinner:1.3'
 	}
   
-Step 3. Inside JAVA
+Step 3. Java Example
 
     public class MainActivity extends AppCompatActivity {
-    ArrayList<String> items=new ArrayList<>();
+
+    Collection<String> items;
     SpinnerDialog spinnerDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final TextView selectedItems=(TextView)findViewById(R.id.txt);
 
-        items.add("Mumbai");
-        items.add("Delhi");
-        items.add("Bengaluru");
-        items.add("Hyderabad");
-        items.add("Ahmedabad");
-        items.add("Chennai");
-        items.add("Kolkata");
-        items.add("Surat");
-        items.add("Pune");
-        items.add("Jaipur");
-        items.add("Lucknow");
-        items.add("Kanpur");
+        final TextView selectedItems = (TextView) findViewById(R.id.txt);
 
+        items = new ArrayList<>(Arrays.asList("Rome", "Milan", "Los Angeles", "New York", "Delhi", "London", "Berlin"));
 
-        spinnerDialog=new SpinnerDialog(MainActivity.this,items,"Select or Search City");// With No Animation
-	spinnerDialog=new SpinnerDialog(MainActivity.this,items,"Select or Search City",R.style.DialogAnimations_SmileWindow);// With 	Animation
-	
-	
-        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
+        spinnerDialog = new SpinnerDialog(this, items, "Select or Search City", "Maybe later", R.style.DialogAnimations_SmileWindow);
+
+        spinnerDialog.bindOnSpinnerListener(new OnSpinnerItemClick() {
             @Override
             public void onClick(String item, int position) {
                 Toast.makeText(MainActivity.this, item + "  " + position+"", Toast.LENGTH_SHORT).show();
                 selectedItems.setText(item + " Position: " + position);
             }
         });
+
         findViewById(R.id.show).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spinnerDialog.showSpinerDialog();
+                spinnerDialog.showSpinnerDialog();
             }
         });
-    }
     }
     
 Step 4. Add custom style in your styles.xml
@@ -69,6 +58,6 @@ Step 4. Add custom style in your styles.xml
     	<style name="DialogAnimations.SmileWindow">
         <item name="@android:windowEnterAnimation">@anim/slide_in_bottom</item>
         <item name="@android:windowExitAnimation">@anim/slide_out_top</item>
-    	</style>
+    </style>
 
   
